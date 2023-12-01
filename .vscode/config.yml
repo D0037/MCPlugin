@@ -1,0 +1,15 @@
+# Database
+db: minecraft
+user: mc
+password: i%k*+j4TSwU8
+host: localhost:3306
+
+# Python dc bot connectivity
+dc_server_address: localhost
+dc_server_port: 54321
+java_server_port: 12345
+
+# Spawn location
+cordx: -219
+cordy: 72
+cordz: -10

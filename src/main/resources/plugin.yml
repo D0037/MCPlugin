@@ -1,0 +1,35 @@
+name: fucking_plugin
+version: 1.0.0
+main: me.tech.App
+description: A fucking plugin
+author: toki32
+website: tokiapro.tech
+api-version: 1.16
+commands:
+  login:
+    description: Log in to play
+    usage: /login your_password
+  register:
+    description: Register to play
+    usage: /register your_password
+  change_password:
+    description: Change you password
+    usage: /change_password old_password new_password
+  delete:
+    description: Delete your account
+    usage: /delete your_password
+  vanish:
+    description: asd
+    usage: asdasd
+  home:
+    description: Teleports you to your bed
+    usage: /home
+  troll:
+    description: .
+    usage: /troll <player> <lag/minizombie> (only admins can use this command!)
+  report:
+    description: Use this command if you saw someone cheating, or breaking the server rules.
+    usage: /report <player> <reason>
+  invsee:
+    description: invsee
+    usage: /invsee <player>
