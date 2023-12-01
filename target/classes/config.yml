@@ -6,10 +6,5 @@ host: localhost:3306
 
 # Spawn location
 cordx: -52
-cordy: 64
-cordz: -28
-
-# Python dc bot connectivity
-dc_server_address: 192.168.1.101
-dc_server_port: 54321
-java_server_port: 12345
+cordy: 63
+cordz: -29

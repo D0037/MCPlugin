@@ -3,29 +3,40 @@ package me.tech.commands;
 import java.util.*;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import me.tech.Util;
 
 public class Warp {
     private static Map<String, Warp> warps = new HashMap<>();
-    private Player owner = null;
+    private String owner = null;
     private Location position = null;
     private String name = null;
-    Warp (Player player, Location loc, String name) {
-        owner = player;
+    public Warp (String owner, Location loc, String name) {
+        this.owner = owner;
         position = loc;
         this.name = name;
         if (warps.containsKey(name)) return;
         warps.put(name, this);
         Util.save();
     }
-    public Player getOwner() {
+    public Warp (String owner, Location loc, String name, boolean save) {
+        this.owner = owner;
+        position = loc;
+        this.name = name;
+        if (warps.containsKey(name)) {
+            System.out.println("WTF!?");
+            return;
+        }
+        warps.put(name, this);
+        if (save) Util.save();
+    } 
+    public String getOwner() {
         return owner;
     }
-    public void setOwner(Player player) {
-        owner = player;
+    public void setOwner(String newOwner) {
+        owner = newOwner;
         warps.put(name, this);
+        Util.save();
     }
     public Location getLocation() {
         return position;
@@ -33,9 +44,11 @@ public class Warp {
     public void setLocation(Location loc) {
         position = loc;
         warps.put(name, this);
+        Util.save();
     }
     public void destroy() {
         warps.remove(name);
+        Util.save();
     }
     public String getName() {
         return this.name;
@@ -61,10 +74,10 @@ public class Warp {
         }
         return result;
     }
-    public static void setWarps(Map<String, Warp> x) {
-        warps = x;
+    public static void addWarp(Warp warp) {
+        warps.put(warp.getName(), warp);
     }
-    public static Map<String, Warp> getWarps() {
+    public static Map<String, Warp> getWarpsMap() {
         return warps;
     }
 }
