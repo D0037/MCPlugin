@@ -1,0 +1,10 @@
+# Database
+db: minecraft
+user: minecraft
+password: M&yi*<*(N|,q
+host: localhost:3306
+
+# Spawn location
+cordx: -52
+cordy: 63
+cordz: -29
