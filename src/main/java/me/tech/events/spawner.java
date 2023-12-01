@@ -88,7 +88,7 @@ public class spawner implements Listener {
             if (res == null) return;
             block.setType(Material.AIR);
             EntityType type = EntityType.PIG;
-            switch (util.getSign(spawnerItem)) {
+            switch (Util.getSign(spawnerItem)) {
                 case "Zombie spawner":
                     type = EntityType.ZOMBIE;
                     break;

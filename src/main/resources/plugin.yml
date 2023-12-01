@@ -33,3 +33,6 @@ commands:
   invsee:
     description: invsee
     usage: /invsee <player>
+  warp:
+    description: warp command
+    usage: /warp <delete/create/warp_name> (warp_name)

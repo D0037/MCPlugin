@@ -1,1 +1,1 @@
-# Extra Expic Mc Plugin
+# Extra Epic Mc Plugin

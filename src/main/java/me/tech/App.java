@@ -24,7 +24,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitTask;
@@ -37,7 +36,7 @@ import me.tech.troll.Troll;
 import net.md_5.bungee.api.ChatColor;
 
 public class App extends JavaPlugin implements Listener {
-    private static Plugin plugin = App.getPlugin(App.class);
+    //private static Plugin plugin = App.getPlugin(App.class);
     public static Map<String, ItemStack[]> inventories = new HashMap<>();
     public static Map<String, Location> locations = new HashMap<>();
     public static Map<String, Boolean> isOP = new HashMap<>();
@@ -52,9 +51,9 @@ public class App extends JavaPlugin implements Listener {
     public static Set<String> AFKing = new HashSet<>();
     public static Map<String, BukkitTask> AFKCounter = new HashMap<>();
     private final FileConfiguration conf = this.getConfig();
-    private static final int spawnx = plugin.getConfig().getInt("cordx");
-    private static final int spawny = plugin.getConfig().getInt("cordy");
-    private static final int spawnz = plugin.getConfig().getInt("cordz");
+    private final int spawnx = getConfig().getInt("cordx");
+    private final int spawny = getConfig().getInt("cordy");
+    private final int spawnz = getConfig().getInt("cordz");
     public static Set<Npc> npcs = new HashSet<>();
     public static Set<String> npcName = new HashSet<>();
     public static boolean exit;
@@ -78,6 +77,7 @@ public class App extends JavaPlugin implements Listener {
         getCommand("troll").setTabCompleter(new Troll());
         getCommand("report").setExecutor(new report());
         getCommand("invsee").setExecutor(new invsee());
+        getCommand("warp").setExecutor(new commands.warp());
         Util.restore();
 
         exit = false;
@@ -109,9 +109,6 @@ public class App extends JavaPlugin implements Listener {
             dcConnect.sendToDcBot(player.getName(), event.message().toString());
         }
     }
-
-    
-
     @Override
     public boolean onCommand (@NotNull CommandSender sender, @NotNull Command command, @NotNull String Label, @NotNull String[] args) {
         if (sender instanceof Player) {
@@ -137,7 +134,6 @@ public class App extends JavaPlugin implements Listener {
                 if (inventory != null) {
                     player.getInventory().setContents(inventory);
                 }
-
                 player.teleport(location);
                 player.setOp(op);
                 player.setGameMode(GameMode.valueOf(gameMode.remove(player.getUniqueId().toString())));

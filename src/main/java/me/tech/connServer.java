@@ -26,14 +26,13 @@ class connServer implements Runnable {
             requestBuilder.append(inputLine);
 
 
-            // Parse the request as JSON
             JSONObject request = new JSONObject(requestBuilder.toString());
             String method = request.getString("method");
             //String user = request.getString("username");
             //String message = request.getString("message");
 
             JSONObject response = new JSONObject();
-            // Perform the desired operation (e.g., addition)
+
             if (method.equals("send")) {
                 String user = request.getString("username");
                 String message = request.getString("message");
@@ -42,11 +41,9 @@ class connServer implements Runnable {
                 response.put("online", Util.getOnlinePlayers());
             }
 
-            // Send the result back to the Python client as JSON
             response.put("status", "ok");
             out.println(response.toString());
 
-            // Clean up the connection
             clientSocket.close();
         } catch (Exception e) {
             e.printStackTrace();

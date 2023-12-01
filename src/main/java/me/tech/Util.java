@@ -11,6 +11,7 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -43,7 +44,12 @@ public class Util {
       savedData.set("unregistered", App.unregistered.toArray());
       savedData.set("FireTicks", App.FireTicks);
       savedData.set("PotionEffects", App.PotionEffects);
-      savedData.set("warps", Warp.getAllWarps());
+      ConfigurationSection section = savedData.createSection("warps");
+      for (Warp warp : Warp.getAllWarps()) {
+         ConfigurationSection subSection = section.createSection(warp.getName());
+         subSection.set("owner", warp.getOwner());
+         subSection.set("location", warp.getLocation());
+      }
       plugin.saveResource("data.yml", true);
       try {
          savedData.save(savedDataFile);
@@ -107,12 +113,11 @@ public class Util {
                App.PotionEffects.put(key, (Collection<PotionEffect>) effects);
          }
          for (String key : savedData.getConfigurationSection("warps").getKeys(false)) {
-               Warp.getWarps().put(key, (Warp) savedData.get("warps." + key));
+               ConfigurationSection subSection = savedData.getConfigurationSection("warps." + key);
+               Warp warp = new Warp(subSection.getString("owner"), subSection.getLocation("location"), key, false);
+               plugin.getLogger().info(warp.getName());
          }
-      } catch (Exception e) {
-         plugin.getLogger().warning("If you are starting the plugin for the first time this is normal!");
-         e.printStackTrace();
-      }
+      } catch (Exception e) {}
    }
    public static void createCustomConfig() {
       savedDataFile = new File(plugin.getDataFolder(), "data.yml");
@@ -155,7 +160,6 @@ public class Util {
       }
       return null;
    }
-
    public static boolean isSigned(ItemStack item, String tag) {
       if (item == null || tag == null) return false;
 
@@ -168,7 +172,6 @@ public class Util {
       if (sign.equals(tag)) return true;
       return false; 
    }
-
    public static String getSign(ItemStack item) {
       if (item == null) return null;
 
