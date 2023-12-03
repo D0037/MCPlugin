@@ -25,8 +25,7 @@ public class invsee implements CommandExecutor, Listener {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (!player.isOp()) {
-                player.sendMessage("Only admins can use this command!");
-                return true;
+                player.sendMessage("You don't have permission to do that!");
             }
             if (args.length == 0) return false;
             if (player.getName().equals(args[0])) return true;
@@ -56,5 +55,5 @@ public class invsee implements CommandExecutor, Listener {
             }
             target.getInventory().setContents(items);
         }
-    }                               
+    }
 }

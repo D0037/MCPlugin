@@ -39,10 +39,10 @@ public class Npc {
     private Location location;
     private NpcFields[] fields;
     private Villager villager;
-    public Npc(String name_, Location location_, NpcFields... fields_) {
-        name = name_;
-        location = location_;
-        fields = fields_;
+    public Npc(String name, Location location, NpcFields... fields) {
+        this.name = name;
+        this.location = location;
+        this.fields = fields;
 
         villager = (Villager) Bukkit.getServer().getWorld("world").spawnEntity(location, EntityType.VILLAGER);
         villager.setCustomName(name);

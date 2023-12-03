@@ -19,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -29,14 +30,12 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
-import io.papermc.paper.event.player.AsyncChatEvent;
 import me.tech.commands.*;
 import me.tech.events.*;
 import me.tech.troll.Troll;
 import net.md_5.bungee.api.ChatColor;
 
 public class App extends JavaPlugin implements Listener {
-    //private static Plugin plugin = App.getPlugin(App.class);
     public static Map<String, ItemStack[]> inventories = new HashMap<>();
     public static Map<String, Location> locations = new HashMap<>();
     public static Map<String, Boolean> isOP = new HashMap<>();
@@ -78,6 +77,7 @@ public class App extends JavaPlugin implements Listener {
         getCommand("report").setExecutor(new report());
         getCommand("invsee").setExecutor(new invsee());
         getCommand("warp").setExecutor(new commands.warp());
+        getCommand("tpa").setExecutor(new tpa());
         Util.restore();
 
         exit = false;
@@ -101,19 +101,18 @@ public class App extends JavaPlugin implements Listener {
         }
     }
     @EventHandler
-    public void onPlayerChat(AsyncChatEvent event) {
+    public void onPlayerChat(PlayerChatEvent event) {
         final Player player = event.getPlayer();
         if (isOP.containsKey(player.getUniqueId().toString()) || unregistered.contains(player.getUniqueId().toString())) {
             event.setCancelled(true);
         } else {
-            dcConnect.sendToDcBot(player.getName(), event.message().toString());
+            dcConnect.sendToDcBot(player.getName(), event.getMessage());
         }
     }
     @Override
     public boolean onCommand (@NotNull CommandSender sender, @NotNull Command command, @NotNull String Label, @NotNull String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            conf.set("pls", "inventories");
             String password = args[0];
             if (args.length < 1) {
                 player.sendMessage("No password given!");
@@ -157,7 +156,7 @@ public class App extends JavaPlugin implements Listener {
         final Runnable task = new Runnable() {
             @Override
             public void run() {
-                getLogger().info(player.getName() + "has started to afk!");
+                getLogger().info(player.getName() + " has started to afk!");
                 AFKing.add(player.getUniqueId().toString());
             }
         };
@@ -166,14 +165,8 @@ public class App extends JavaPlugin implements Listener {
             return;
         }
         if (AFKing.contains(player.getUniqueId().toString())) {
-            final Runnable removeTask = new Runnable() {
-                @Override
-                public void run() {
-                    getLogger().info(player.getName() + " has stopped AFKing!");
-                    AFKing.remove(player.getUniqueId().toString());    
-                }
-            };
-            getServer().getScheduler().runTaskLater(this, removeTask, 400L);
+            getLogger().info(player.getName() + " has stopped AFKing!");
+            AFKing.remove(player.getUniqueId().toString());    
         }
         if (!AFKCounter.containsKey(player.getUniqueId().toString())) {
             AFKCounter.put(player.getUniqueId().toString(), getServer().getScheduler().runTaskLater(this, task, 1200L));

@@ -36,3 +36,6 @@ commands:
   warp:
     description: warp command
     usage: /warp <delete/create/warp_name> (warp_name)
+  tpa:
+    description: tpa
+    usage: /tpa <target_player>
