@@ -188,10 +188,10 @@ public class App extends JavaPlugin implements Listener {
         if (event.getEntityType() == EntityType.PLAYER) {
             Player player = (Player) event.getEntity();
             if  (!AFKing.contains(player.getUniqueId().toString())) return;
-            player.kickPlayer("You get damage while you was afking.");
+            player.kickPlayer("You got damaged while you were afking.");
             if (event.getDamager().getType().equals(EntityType.PLAYER)) {
                 event.getDamager().sendMessage("You damaged a player who was afking. Don't do that bro! (This incident was reported to the admins!)");
-                dcConnect.report(event.getDamager().getName(), "Damaged " + player.getName() + "while he afked!");
+                dcConnect.report(event.getDamager().getName(), "damaged " + player.getName() + "while he afked!");
             }
         }
     }

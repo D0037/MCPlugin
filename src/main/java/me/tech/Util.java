@@ -49,6 +49,7 @@ public class Util {
          ConfigurationSection subSection = section.createSection(warp.getName());
          subSection.set("owner", warp.getOwner());
          subSection.set("location", warp.getLocation());
+         plugin.getLogger().info(warp.getName());
       }
       plugin.saveResource("data.yml", true);
       try {

@@ -1,0 +1,15 @@
+# Database
+db: mc
+user: mc
+password: fcpTZaZ3"Ea|
+host: localhost:3306
+
+# spawn location
+cordx: 0
+cordy: 100
+cordz: 0
+
+# dc
+dc_server_address: 127.0.0.1
+dc_server_port: 54321
+java_server_port: 12345

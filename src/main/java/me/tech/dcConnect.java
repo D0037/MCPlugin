@@ -21,9 +21,6 @@ public class dcConnect {
             jsonObject.put("user", user);
             jsonObject.put("message", message);
             out.println(jsonObject);
-            String inputLine = in.readLine();
-            JSONObject json = new JSONObject(inputLine);
-            //System.out.println("Python's reply: " + json.get("status"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,9 +34,6 @@ public class dcConnect {
             jsonObject.put("user", user);
             jsonObject.put("reason", reason);
             out.println(jsonObject);
-            String inputLine = in.readLine();
-            JSONObject json = new JSONObject(inputLine);
-            //System.out.println("Python's reply: " + json.get("status"));
         } catch (Exception e) {
             e.printStackTrace();
         }
